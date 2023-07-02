@@ -7,6 +7,9 @@ function addExpense(a) {
   var description = document.getElementById("textInput").value;
   var category = document.getElementById("category").value;
   var input = amount + ": " + description + " , " + category;
+  const obj={
+    amount,description,category
+  }
 
   var li = document.createElement("li");
   ul.appendChild(li);
@@ -22,12 +25,18 @@ function addExpense(a) {
   li.appendChild(edit);
   li.appendChild(deleteBtn);
   ul.appendChild(li);
+  axios.post("https://crudcrud.com/api/e73b6b1b5c584dc19218de843521a17b/expenses",obj)
+  .then((response)=>{
+    console.log(response.data)
+  }).catch((err)=>console.log(err));
 
+  //delete
   deleteBtn.addEventListener("click", function (c) {
     var deleteAction = c.target.parentElement;
     ul.removeChild(deleteAction);
+    axios.delete("https://crudcrud.com/api/e73b6b1b5c584dc19218de843521a17b/expenses")
   });
-
+  //update
   edit.addEventListener("click", function (c) {
     console.log("hello");
     var container = document.getElementById("container");
